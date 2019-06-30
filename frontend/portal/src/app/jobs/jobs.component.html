@@ -1,0 +1,24 @@
+<mat-accordion *ngFor="let dat of data">
+  <mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <b>{{dat.company_id.name}}</b>
+    </mat-panel-title>
+    <mat-panel-description>
+      <b>{{dat.job_type.job_name}}</b>
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <span>
+    <b>Salary &nbsp; {{dat.salary}}</b>
+  </span><br/>
+  <span>
+    <b>Positions &nbsp; {{dat.positions_avaliable}}</b>
+  </span><br/>
+  <span>
+    <b>Description &nbsp; {{dat.description}}</b>
+  </span><br/>
+  <span style="padding-right: 10px;" *ngIf="loggedin == '1'">
+    <button mat-flat-button color="accent" (click)="apply(dat._id,dat.company_id._id)">Apply</button>
+  </span>
+  </mat-expansion-panel>
+</mat-accordion>

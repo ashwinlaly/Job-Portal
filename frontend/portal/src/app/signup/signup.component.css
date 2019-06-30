@@ -1,0 +1,30 @@
+mat-card {
+    margin: 8%;
+    height: 40%;
+}
+
+mat-card-title {
+    font-weight: bold;
+}
+
+mat-card-actions {
+    margin-right: 1px;
+    float: right;
+}
+
+mat-radio-group {
+    padding-top: 4px;
+}
+
+mat-radio-button {
+    padding-left: 10px;
+}
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-fields > * {
+    width: 100%;
+}

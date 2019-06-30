@@ -1,0 +1,14 @@
+
+.form-fields {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-fields > * {
+    width: 100%;
+}
+
+button {
+    width: 5%;
+    float: right;
+}

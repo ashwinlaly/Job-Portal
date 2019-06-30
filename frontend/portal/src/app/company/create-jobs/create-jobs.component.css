@@ -1,0 +1,17 @@
+mat-card {
+    margin: 1%;
+    height: 60%;
+}
+
+mat-card-title {
+    font-weight: bold;
+}
+
+mat-card-actions {
+    margin-right: 1px;
+    float: right;
+}
+
+form > * {
+    width: 100%;
+}

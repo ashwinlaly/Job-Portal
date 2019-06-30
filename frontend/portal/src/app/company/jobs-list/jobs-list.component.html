@@ -1,0 +1,12 @@
+<mat-card *ngFor="let job of jobs">
+    <mat-card-content>
+        <b>Created Job : </b>
+        <span>
+            {{job.job_type.job_name}} 
+        </span>
+        <b> Created At : </b>
+        <span>
+            {{job.createdAt | date:'mediumDate'}}
+        </span>
+    </mat-card-content>
+</mat-card>

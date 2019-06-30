@@ -1,0 +1,33 @@
+<mat-card>
+  <mat-card-header>
+      <mat-card-title>Create Job</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+      <form>
+        <mat-form-field>
+          <mat-label>Job Type</mat-label>
+          <mat-select #job_id="ngModel" [(ngModel)]="job.job_id" name="job_id">
+            <mat-option *ngFor="let jt of job_type" [value] = "jt._id">{{jt.job_name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <input #salary="ngModel" [(ngModel)]="job.salary" name="salary" matInput type="text" name="salary" placeholder="Salary"/>
+        </mat-form-field>
+        <mat-form-field>
+            <textarea #description="ngModel" [(ngModel)]="job.description" name="description" matInput name="description" placeholder="Description" required> </textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <input #due_date="ngModel" [(ngModel)]="job.due_date" name="due_date" matInput placeholder="Due Date" [matDatepicker]="due_date" />
+            <mat-datepicker-toggle matSuffix [for]="due_date"></mat-datepicker-toggle>
+            <mat-datepicker #due_date></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <input #positions_avaliable="ngModel" [(ngModel)]="job.positions_avaliable" matInput type="number" name="positions_avaliable" placeholder="Positions Avaliable"/>
+        </mat-form-field>
+      </form>
+  </mat-card-content>
+  <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="create()">Create</button>
+      <button mat-raised-button color="accent" (click)="clear()">Clear</button>
+  </mat-card-actions>
+</mat-card>
