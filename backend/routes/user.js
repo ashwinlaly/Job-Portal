@@ -25,6 +25,7 @@ var route = () => {
             });
         })
         .post( (req,res) => {
+            var id = req.params.id;
             var data = {
                 name  : req.body.name,
                 email : req.body.email,
@@ -34,7 +35,20 @@ var route = () => {
                 education : req.body.education,
             };
             console.log(data);
-            res.send(data);
+            //res.send(data);
+            users.findByIdAndUpdate(id,data, (err,doc)=>{
+                if(err){
+                    res.send({
+                        message : "Update failed",
+                        status : 200
+                    });
+                } else {
+                    res.send({
+                        message : "User data updated sucessfully",
+                        status : 200
+                    });
+                }
+            });
         });
 
     userRoute.route("/apply")

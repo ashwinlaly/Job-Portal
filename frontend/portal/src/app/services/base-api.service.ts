@@ -35,6 +35,14 @@ export class BaseApiService {
     );
   }
 
+  patch(path: String, body : any) : Observable<any>{
+    return this.http.patch(`${this.APP}${path}`, JSON.stringify(body), {headers : this.header}).pipe(
+      map(this.catchForError),
+      catchError((err) => throwError(err)),
+      map(this.getJSON)
+    );
+  }
+
   private getJSON(responce : Response) {
     return responce.json();
   }

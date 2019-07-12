@@ -1,0 +1,19 @@
+<mat-card *ngFor="let job of jobs">
+    <mat-card-content>
+        <b>Applied by Name : </b>
+        <span>
+            {{job.user_id.name}} 
+        </span>
+        <b>Applied by Email : </b>
+        <span>
+            {{job.user_id.email}} 
+        </span>
+        <b> Applied At : </b>
+        <span>
+            {{job.applied_at | date:'mediumDate'}}
+        </span>
+        <span>
+            <button mat-raised-button color="primary" (click)=callforInterview(job._id)>Accept</button>
+        </span>
+    </mat-card-content>
+</mat-card>

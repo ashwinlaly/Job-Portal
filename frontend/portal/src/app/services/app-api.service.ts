@@ -32,10 +32,6 @@ export class AppApiService {
     return this._baseapi$.post(`user/${userId}`,data);
   }
 
-  private getUserid() : String{
-    return localStorage.getItem('userId');
-  }
-
   public getJobTypesList() {
     return this._baseapi$.get('job_types');
   }
@@ -54,6 +50,30 @@ export class AppApiService {
 
   public getJobsByCompany(company_id){
     return this._baseapi$.get(`company/jobs/${company_id}`);
+  }
+
+  public getUsersAppliedforJobWithCompanyID(){
+    var id = this.getUserid();
+    return this._baseapi$.get(`company/users_applied/${id}`);
+  }
+
+  public getCompanyDetailsById(){
+    var id = this.getUserid();
+    return this._baseapi$.get(`company/${id}`);
+  }
+
+  public InviteUsertoInterview(data){
+    return this._baseapi$.get(`company/call_for_interview/${data}`);
+  }
+
+  public patchCompanyDetails(data){
+    var id = this.getUserid();
+    return this._baseapi$.patch(`company/${id}`,data);
+  }
+
+  // -------------------------- Common Functions ----------------------------------
+  private getUserid() : String{
+    return localStorage.getItem('userId');
   }
 
 }

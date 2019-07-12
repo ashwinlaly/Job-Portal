@@ -8,9 +8,6 @@ var express = require('express'),
 var authRoute = require('./routes/auth')(),
     companyRoute = require('./routes/company')(),
     userRoute = require('./routes/user')();
-    
-    
-    //adminRoute = require('./routes/admin')();
 
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());

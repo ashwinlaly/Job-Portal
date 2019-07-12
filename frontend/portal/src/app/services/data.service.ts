@@ -1,44 +1,32 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
   
+  loggedIn  = new BehaviorSubject('0');
+  loggedType = new BehaviorSubject('0');
+  UserLoggedIn:string;
+  CompanyLoggedIn:string;
+
   constructor() { }
 
-  public getUserLoggedIn():string{
-    var ul = localStorage.getItem('userLoggedIn');
-    if((ul == "0") || (ul == "null") || (ul == null) ){
-      return "0";
-    } else {
-      return "1";
-    }
-  }
-
-  public getUserLoggedInType(): string{
-    var ul = localStorage.getItem('userType');
-    if((ul == "2")){
-      return "2";
-    } else {
-      return "1";
-    } 
-  }
-
-  public getUserLoggedInId(): string{
-    return localStorage.getItem('userId');
-  }
-
   public setUserLoggedIn(state : string){
-    localStorage.setItem('userLoggedIn',state);
+    this.loggedIn.next(state);
   }
 
   public setUserLoggedInType(state : string){
-    localStorage.setItem('userType',state);
+    this.loggedType.next(state);
   }
 
   public setUserLoggedInId(state : string){
     localStorage.setItem('userId',state);
+  }
+
+  public getUserLoggedInId(): string{
+    return localStorage.getItem('userId');
   }
 
 }

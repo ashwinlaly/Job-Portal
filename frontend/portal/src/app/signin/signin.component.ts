@@ -33,10 +33,14 @@ export class SigninComponent implements OnInit {
       (res) => {
         if(res.status == 200){
           this._dataAPI$.setUserLoggedIn("1");
-          this.routes.navigate(['/']);
-          localStorage.setItem('userType', res.type);
+          this._dataAPI$.setUserLoggedInType(res.type);
           localStorage.setItem('userId', res.doc._id);
           console.log(res);
+          if(res.type == "1"){
+            this.routes.navigate(['/']);
+          } else {
+            this.routes.navigate(['companies/jobs_list']);
+          }
         } else {
           this._popAPI$.showSnack(res.message);
         }

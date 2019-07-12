@@ -12,30 +12,27 @@ export class AppComponent implements OnInit {
   title = 'Jobs portal';
 
   loggedIn : String;
+  loggedType: String;
   UserLoggedIn:string;
   CompanyLoggedIn:string;
 
-  logger : BehaviorSubject<{logged : String}>;
-  private loggerSub : Subscription;
-
   constructor(public _dataService$ : DataService,
               private router : Router){
-    this.logger =  new BehaviorSubject<{logged : String}>({logged : localStorage.getItem('userLoggedIn')});
-    this.loggerSub = this.logger.subscribe((e) => {
-      console.log("Subr",e);
-    });
   }
 
   ngOnInit(){
-    this.loggedIn = this._dataService$.getUserLoggedIn();
-    console.log("here",this.loggedIn);
-    console.log(this.loggedIn);
+    this._dataService$.loggedIn.subscribe(val => {
+      this.loggedIn = val;
+    })
+    this._dataService$.loggedType.subscribe(val =>{
+      this.loggedType = val;
+    });
   }
 
   logout(){
-    this.loggedIn = "0";
-    this.logger =  new BehaviorSubject<{logged : String}>({logged : localStorage.getItem('userLoggedIn')});
     this._dataService$.setUserLoggedIn("0");
+    this._dataService$.setUserLoggedInType('0');
+    this._dataService$.setUserLoggedInId('');
     this.router.navigate(['/']);
     console.log(this.loggedIn);
   }

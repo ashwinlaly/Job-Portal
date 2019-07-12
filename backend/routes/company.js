@@ -1,9 +1,10 @@
 var express = require('express'),
     company = require('../models/Companys'),
-    users  = require('../models/Users'),
     job_types = require('../models/Job_type'),
     jobs = require('../models/Jobs'),
+    users_applied = require('../models/Users_applied'),
     mongoose = require('mongoose'),
+    mailer = require('../email');
     CompanyRoute = express.Router();
 
 var route = ()=> {
@@ -29,7 +30,7 @@ var route = ()=> {
                 }
             });
         });
-    CompanyRoute.route("company/:id")
+    CompanyRoute.route("/company/:id")
         .get((req,res) => {
             company.find({_id : req.params.id},(err,doc) => {
                 if(err){
@@ -38,10 +39,12 @@ var route = ()=> {
                         status : 400
                     });
                 } else{
-                    res.send(doc,{
+                    var data = {
+                        doc,
                         message : "Company Details",
                         status : 200
-                    });
+                    };
+                    res.send(data);
                 }
             });
         })
@@ -62,19 +65,19 @@ var route = ()=> {
                         password : req.body.password,
                         phone :req.body.phone
                     });
-                    // com.save((errs, docs) => {
-                    //     if(errs){
-                    //         res.send({
-                    //             message : "Company details update failed",
-                    //             status : 400
-                    //         });
-                    //     } else {
-                    //         res.send({
-                    //             message : "Data Updated Sucessfully.",
-                    //             status : 200
-                    //         });
-                    //     }
-                    // })
+                    com.save((errs, docs) => {
+                        if(errs){
+                            res.send({
+                                message : "Company details update failed",
+                                status : 400
+                            });
+                        } else {
+                            res.send({
+                                message : "Data Updated Sucessfully.",
+                                status : 200
+                            });
+                        }
+                    })
                 }
             });
         });
@@ -163,6 +166,71 @@ var route = ()=> {
                         status : 200
                     }
                     res.send(data);
+                }
+            });
+        });
+
+    CompanyRoute.route('/company/users_applied/:id')
+        .get((req,res) => {
+            var id = req.params.id;
+            users_applied.find({company_id : id}).populate('job_id', 'description').populate('user_id','name email').exec((err,doc) => {
+                if(err){
+                    res.send({
+                        message : "No users applied",
+                        status : 200
+                    });
+                } else {
+
+                    //var jobs =                     
+                    //res.send(doc[0].job_id._id);
+                    var data = {
+                        doc,
+                        message : "Applied user's List!.",
+                        status : 200
+                    };
+                    if(doc.length == 0){
+                        res.send({
+                            message : "No users applied",
+                            status : 200
+                        }); 
+                    } else {
+                        res.send(data);
+                    }
+                }
+            });
+        });
+
+    CompanyRoute.route("/company/call_for_interview/:id")
+        .get( (req,res) => {
+            var application_id = req.params.id;
+            users_applied.find({_id: application_id}).populate('job_id','_id').populate('user_id','email name').populate('company_id','name').exec((err, doc) =>{
+                if(err){
+                    res.send({
+                        message : "User does not exists",
+                        status : 200
+                    });
+                } else {
+                    if(doc[0].status == 1){
+                        res.send({
+                            message : "User already requested!.",
+                            status : 200
+                        });
+                    } else {
+                        users_applied.update({_id: application_id}, { $set : { status : 1} }, (uerr, udoc) => {
+                            if(uerr){
+                                res.send({
+                                    message : "User already requested!.",
+                                    status : 200
+                                });
+                            } else {
+                                mailer(doc[0]['user_id']['email'],'interview call','Please contact '+doc[0]['company_id']['name']+'you are invited to attend an interview there');
+                                res.send({
+                                    message : doc[0]['user_id']['name']+"  invited",
+                                    status : 200
+                                });
+                            }
+                        });
+                    }
                 }
             });
         });

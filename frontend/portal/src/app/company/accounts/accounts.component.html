@@ -1,0 +1,35 @@
+<mat-card>
+    <mat-card-header>
+        <mat-card-title>
+            My Account
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form #myaccount="ngForm" role="form" name="myaccount" class="form-fields">
+            <mat-form-field>
+                <input type="text" placeholder="Enter the name" matInput name="name" [(ngModel)]="company.name" #name="ngModel" required/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Employee count" matInput name="employee_count" [(ngModel)]="company.employee_count" #employee_count="ngModel"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Address" matInput name="address" [(ngModel)]="company.address" #address="ngModel"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Email" matInput name="email" [(ngModel)]="company.email" #email="ngModel"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Description" matInput name="description" [(ngModel)]="company.description" #description="ngModel"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Password" matInput name="password" [(ngModel)]="company.password" #password="ngModel"/>
+            </mat-form-field>
+            <mat-form-field>
+                <input type="text" placeholder="Enter the Phone" matInput name="phone" [(ngModel)]="company.phone" #phone="ngModel"/>
+            </mat-form-field>
+            <div class="btn-update">
+                <button mat-raised-button color="primary" (click)="update()">Update</button>
+            </div>
+        </form>
+    </mat-card-content>
+</mat-card>

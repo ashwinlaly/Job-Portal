@@ -43,11 +43,8 @@ export class SignupComponent implements OnInit {
     this._appApi$.Usersignup(this.SignupForm.value).subscribe(
       (res) => {
         if(res.status == 200){
-          this._dataApi$.setUserLoggedIn("1");
-          this._appApi$.isLoggedIn = true;
           this.router.navigate(['/companies']);
-          this._dataApi$.setUserLoggedInId(res.doc._id);
-          this._dataApi$.setUserLoggedInType(res.type);
+          this._popService$.showSnack('Account created sucessfully!!! Please login to continue.');
         } else {
           this._popService$.showSnack(res.message);
         }

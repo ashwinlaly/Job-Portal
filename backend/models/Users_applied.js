@@ -24,6 +24,10 @@ var users = new Mongoose.Schema(
         },
         order : {
             type : Number
+        },
+        status :{
+            type: Boolean,
+            default : 0
         }
     },
     {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppApiService } from '../services/app-api.service';
 import { PopService } from '../services/pop.service';
+import { compileInjectable } from '@angular/compiler';
 
 export interface Ieducation {
   course : String,
@@ -65,6 +66,18 @@ export class AccountsComponent implements OnInit {
       },
       (err) => this._PopAPI$.showSnack(err.message)
     );
+  }
+
+  update() {
+    console.log(this.user);
+    this._AppAPI$.postUserDetailsByID(this.user).subscribe(
+      (res) => {
+        this._PopAPI$.showSnack(res.message);
+      },
+      (err) => {
+        this._PopAPI$.showSnack(err);
+      }
+    )
   }
 
 }

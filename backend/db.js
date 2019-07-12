@@ -3,7 +3,7 @@ var Mongoose = require('mongoose'),
 
     // seeder = require('mongoose-seed'),
 
-Mongoose.connect("mongodb://localhost:27017/job_portal",{useNewUrlParser : true} , (err, con) => {
+Mongoose.connect("mongodb://localhost:27017/job_portal",{useNewUrlParser : true, useFindAndModify : false} , (err, con) => {
     if(err){
         console.log(err);
     } else {

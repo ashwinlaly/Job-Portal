@@ -3,38 +3,42 @@
     <span>Job Portal</span>
     <span class="spacer"></span>
     <div class="menu-button">
-      <span>
-        <button mat-button [routerLink]="['/']">Jobs</button>
+      <span *ngIf="(loggedType == '1')|| (loggedType == '0') ">
+        <span>
+          <button mat-button [routerLink]="['/']">Jobs</button>
+        </span>
+        <span>
+          <button mat-button [routerLink]="['/companies']">Companies</button>
+        </span>
+        <span *ngIf="!(loggedIn == '0')">
+          <button mat-icon-button [matMenuTriggerFor]="menuUser">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menuUser="matMenu" >
+            <button mat-menu-item [routerLink]="['/accounts']">My Account</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+          </mat-menu>
+        </span>
       </span>
-      <span>
-        <button mat-button [routerLink]="['/companies']">Companies</button>
-      </span>
-      <span *ngIf="!(loggedIn == '0')">
-        <button mat-icon-button [matMenuTriggerFor]="menuUser">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menuUser="matMenu" >
-          <button mat-menu-item [routerLink]="['/accounts']">My Account</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
-      </span>
-      <span *ngIf="!(loggedIn == '0')">
-        <button mat-button [routerLink]="['/companies/jobs_list']">Jobs</button>
-      </span>
-      <span *ngIf="!(loggedIn == '0')">
-        <button mat-button [routerLink]="['/companies/create_jobs']">Create Jobs</button>
-      </span>
-      <span *ngIf="!(loggedIn == '0')">
-        <button mat-button [routerLink]="['/companies/users_applied']">Users Applied</button>
-      </span>
-      <span *ngIf="!(loggedIn == '0')">
-        <button mat-icon-button [matMenuTriggerFor]="menuCompany">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menuCompany="matMenu" >
-          <button mat-menu-item [routerLink]="['/companies/accounts']">My Account</button>
-          <button mat-menu-item (click)="logout()">Logout</button>
-        </mat-menu>
+      <span *ngIf="loggedType == '2'">
+        <span *ngIf="!(loggedIn == '0')">
+          <button mat-button [routerLink]="['/companies/jobs_list']">Jobs</button>
+        </span>
+        <span *ngIf="!(loggedIn == '0')">
+          <button mat-button [routerLink]="['/companies/create_jobs']">Create Jobs</button>
+        </span>
+        <span *ngIf="!(loggedIn == '0')">
+          <button mat-button [routerLink]="['/companies/users_applied']">Users Applied</button>
+        </span>
+        <span *ngIf="!(loggedIn == '0')">
+          <button mat-icon-button [matMenuTriggerFor]="menuCompany">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menuCompany="matMenu" >
+            <button mat-menu-item [routerLink]="['/companies/accounts']">My Account</button>
+            <button mat-menu-item (click)="logout()">Logout</button>
+          </mat-menu>
+        </span>
       </span>
       <span *ngIf="(loggedIn == '0')">
         <button mat-button [routerLink]="['/signin']">Sign in</button>
